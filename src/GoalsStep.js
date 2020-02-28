@@ -4,8 +4,6 @@ import states from './states';
 import useInputState from './useInputState';
 import ErrorMessage from './ErrorMessage';
 
-import './Goals.css'
-
 const GoalsStep = ({firstName, setGoals, setStep}) => {
   const [firstGoal, setFirstGoal] = useInputState('');
   const [secondGoal, setSecondGoal] = useInputState('');
@@ -29,12 +27,13 @@ const GoalsStep = ({firstName, setGoals, setStep}) => {
   }
 
   return (
-    <div>
+    <>
       <h1>Hi {firstName}!</h1>
       <ErrorMessage errors={errors} title='Knowing goals help us to personalize your experience' />
       <p>What are your main goals with Slayte?</p>
       <Form>
         <Form.Field
+          autoFocus
           id='goal-1'
           control={Input}
           label='1'
@@ -72,7 +71,7 @@ const GoalsStep = ({firstName, setGoals, setStep}) => {
           <Form.Button onClick={validate} fluid size='large' color='violet' content='Proceed' />
         </Form.Group>
       </Form>
-    </div>
+    </>
   );
 }
 

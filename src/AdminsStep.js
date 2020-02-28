@@ -14,7 +14,6 @@ const AdminsStep = ({setAdmins, setStep}) => {
   useEffect(() => {
     if (errors.length === 0 && touched) {
       setAdmins(adminEmails.filter(e => e.length > 0))
-      // setStep(states.ADMINS)
     }
   }, [errors])
 
@@ -50,21 +49,21 @@ const AdminsStep = ({setAdmins, setStep}) => {
   )
 
   return (
-    <div>
+    <>
       <h1>Way to go!</h1>
       <ErrorMessage errors={errors} title='Admins help you to delegate tasks'/>
       <p>Let us know who should be admins in your setup. Then you will be on your way!</p>
       <Form> 
         {renderInputs()}
         <div style={{display: 'flex', justifyContent:"center"}}>
-          <Button onClick={()=> setAdminEmails([...adminEmails, ''])} color='pink' circular icon='plus' textAlign='center' />
+          <Button onClick={()=> setAdminEmails([...adminEmails, ''])} color='pink' circular icon='plus' />
         </div>
         <Form.Group widths='equal'>
           <Form.Button onClick={() => setStep(states.GOALS)} fluid size='large' color='blue' content='Back' />
           <Form.Button onClick={validate} fluid size='large' color='green' content='Finish' />
         </Form.Group>
       </Form>
-    </div>
+     </>
   );
 }
 

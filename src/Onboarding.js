@@ -1,10 +1,11 @@
-import React,  {useState} from 'react';
-import Step from './Step';
+import React,  {useState, useEffect} from 'react';
+import { Grid, Loader } from 'semantic-ui-react'
 import WelcomeStep from './WelcomeStep';
 import GoalsStep from './GoalsStep';
 import AdminsStep from './AdminsStep';
-import { CSSTransition, TransitionGroup, SwitchTransition } from 'react-transition-group';
+import ModalMessage from './ModalMessage';
 import states from './states';
+import firebase from './firebase';
 
 const Onboarding = props => {
 
@@ -12,6 +13,37 @@ const Onboarding = props => {
   const [basicInfo, setBasicInfo] = useState(null);
   const [goals, setGoals] = useState(null);
   const [admins, setAdmins] = useState(null);
+  const [modalMessage, setModalMessage] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      if (basicInfo && goals && admins) {
+        setShowSpinner(true);
+        try {
+          const {user: {uid}} = await firebase.signUp(basicInfo.email, basicInfo.password);
+          await firebase.setUserDetails(uid, { basicInfo, goals, admins });
+          setModalMessage({ 
+            title: 'Onboarding Successful!', 
+            message: 'Welcome To Slayte! You are now in a whole new game' 
+          });
+        } catch(e) {
+          setModalMessage({title: e.code, message: e.message});
+          resetData();
+        }
+        setShowModal(true)
+        setCurrentStep(states.WELCOME);
+        setShowSpinner(false)
+      }
+    })()
+  }, [basicInfo, goals, admins]);
+
+  const resetData = () => {
+    setBasicInfo(null);
+    setGoals(null);
+    setAdmins(null);
+  }
 
   const renderCurrentStep = (currentStep) => {
     switch(currentStep){
@@ -28,33 +60,17 @@ const Onboarding = props => {
 
   return (
     <>
-    <Step>
-        <TransitionGroup>
-          <CSSTransition
-            in={true}
-            timeout={300}
-            classNames="show"
-            unmountOnExit
-            appear
-          >
-            {renderCurrentStep(currentStep)}
-          </CSSTransition>
-        </TransitionGroup>
-    </Step>
-
-
-    <CSSTransition
-      in={true}
-      timeout={300}
-      classNames="show"
-      unmountOnExit
-      appear
-    >
-      <WelcomeStep setStep={setCurrentStep} />
-    </CSSTransition>
+      <ModalMessage {...modalMessage} showModal={showModal} setShowModal={setShowModal}/>
+      <Grid textAlign='center' style={{ minHeight: '100vh' }} verticalAlign='middle'>
+        <Grid.Column className="container">
+          <Loader active={showSpinner} className='spinner'/>
+          {renderCurrentStep(currentStep)}
+        </Grid.Column>
+      </Grid>    
     </>
   )
+
 }
 
-export default Onboarding
+export default Onboarding;
 
