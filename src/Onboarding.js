@@ -6,7 +6,7 @@ import AdminsStep from './AdminsStep';
 import ModalMessage from './ModalMessage';
 import states from './states';
 import firebase from './firebase';
-import Page from './Page';
+import Step from './Step';
 
 const Onboarding = props => {
 
@@ -68,7 +68,7 @@ const Onboarding = props => {
     <>
       <ModalMessage {...modalMessage} showModal={showModal} setShowModal={setShowModal}/>        
       <Loader active={showSpinner} className='spinner'/>
-      <Page stepDirection={stepDirection} currentStep={currentStep} renderCurrentStep={renderCurrentStep} />
+      <Step stepDirection={stepDirection} currentStep={currentStep} renderCurrentStep={renderCurrentStep} />
     </>
   )
 

@@ -133,3 +133,7 @@ h1 {
   transition: all .3s ease-out !important;
 }
 
+.grow {
+  height: auto;
+  transition: all 3s;
+}

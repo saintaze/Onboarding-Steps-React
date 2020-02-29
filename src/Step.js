@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Grid } from 'semantic-ui-react';
 
-const Page = ({ stepDirection, currentStep, renderCurrentStep}) => {
+const Step = ({ stepDirection, currentStep, renderCurrentStep}) => {
 
   const childFactoryCreator = classNames => {
     return child => React.cloneElement(child, { classNames })
@@ -28,4 +28,4 @@ const Page = ({ stepDirection, currentStep, renderCurrentStep}) => {
   )
 }
 
-export default Page;
+export default Step;
