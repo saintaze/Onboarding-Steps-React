@@ -10,12 +10,12 @@ const ErrorMessage = ({errors, title}) => {
       classNames="show"
       unmountOnExit
     >
-      <Message
+      {errors.length ? <Message
         size="small"
         error
         header={title}
         list={errors}
-      />  
+      /> : <></>}
     </CSSTransition>
   );
 }

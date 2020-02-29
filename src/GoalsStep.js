@@ -3,8 +3,9 @@ import { Form, Input } from 'semantic-ui-react'
 import states from './states';
 import useInputState from './useInputState';
 import ErrorMessage from './ErrorMessage';
+import validator from './Validator';
 
-const GoalsStep = ({firstName, setGoals, setStep}) => {
+const GoalsStep = ({ firstName, setGoals, setStep, setStepDirection}) => {
   const [firstGoal, setFirstGoal] = useInputState('');
   const [secondGoal, setSecondGoal] = useInputState('');
   const [thirdGoal, setThirdGoal] = useInputState('');
@@ -13,17 +14,23 @@ const GoalsStep = ({firstName, setGoals, setStep}) => {
 
   useEffect(() => {
     if (errors.length === 0 && touched) {
-      setGoals([firstGoal, secondGoal, thirdGoal].filter(g => g.length > 0))
-      setStep(states.ADMINS)
+      setGoals([firstGoal, secondGoal, thirdGoal].filter(g => g.length > 0));
+      setStep(states.ADMINS);
+      setStepDirection('next');
     }
   }, [errors])
 
+  const goBack = () => {
+    setStepDirection('prev');
+    setStep(states.WELCOME);
+  }
+
   const validate = () => {
     const errors = []
-    if ([firstGoal, secondGoal, thirdGoal].every(g => g.trim().length === 0)) {
-      errors.push('Set atleast one goal')
+    if ([firstGoal, secondGoal, thirdGoal].every(g => validator.isEmpty(g))) {
+      errors.push('Set atleast one goal');
     }
-    setErrors(errors)
+    setErrors(errors);
   }
 
   return (
@@ -67,7 +74,7 @@ const GoalsStep = ({firstName, setGoals, setStep}) => {
           onFocus={() => setTouched(true)}
         />
         <Form.Group widths='equal'>
-          <Form.Button onClick={() => setStep(states.WELCOME)} fluid size='large' color='blue' content='Back' />
+          <Form.Button onClick={goBack} fluid size='large' color='blue' content='Back' />
           <Form.Button onClick={validate} fluid size='large' color='violet' content='Proceed' />
         </Form.Group>
       </Form>

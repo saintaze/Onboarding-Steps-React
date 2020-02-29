@@ -19,30 +19,6 @@ h1 {
   font-size: 2.2rem;
 }
 
-.ui.button {
-  margin-top: 3rem ;
-}
-
-.inline.field {
-  display: flex;
-  align-items: center;
-}
-
-.ui.input {
-  flex: 1;
-}
-
-.show-enter {
-  display: block ;
-  opacity: 0 ;
-  width: 100% ;
-  transition: all .3s ease-out !important;
-}
-
-.show-enter-active{
-  opacity: 1 ;
-}
-
 .container{
   display: flex !important;
   flex-direction: column;
@@ -73,3 +49,87 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%)
 }
+
+.ui.button {
+  margin-top: 3rem ;
+}
+
+.inline.field {
+  display: flex;
+  align-items: center;
+}
+
+.ui.input {
+  flex: 1;
+}
+
+.ui.dimmer {
+  background-color: rgba(0,0,0,0.78);
+}
+
+/* Animation */
+
+.show-enter {
+  opacity: 0 ;
+  transition: all .3s ease-out !important;
+}
+
+.show-enter-active{
+  opacity: 1 ;
+}
+
+.show-exit {
+  opacity: 1 ;
+  transition: all .3s ease-out !important;
+}
+
+.show-exit-active{
+  opacity: 0 ;
+}
+
+.page {
+  position: absolute;
+  left: 0;
+  right:0;
+}
+
+.next-enter{
+  transform: translateX(100%);
+  z-index: 100;
+}
+
+.next-enter-active{
+  transform: translateX(0);
+  transition: all .3s ease-out !important;
+}
+
+.next-exit {
+  z-index: 10;
+  transform: translateX(0)
+}
+
+.next-exit-active {
+  transform: translateX(-100%);
+  transition: all .3s ease-out !important;
+}
+
+.prev-enter {
+  z-index: 100;
+  transform: translateX(-100%)
+}
+
+.prev-enter-active {
+  transform: translateX(0);
+  transition: all .3s ease-out !important;
+}
+
+.prev-exit {
+  z-index: 10;
+  transform: translateX(0)
+}
+
+.prev-exit-active {
+  transform: translateX(100%);
+  transition: all .3s ease-out !important;
+}
+
