@@ -20,9 +20,6 @@ h1 {
 }
 
 .container{
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
   min-height: 622px;
   margin: 3rem;
   background-color: white;
